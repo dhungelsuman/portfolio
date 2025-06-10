@@ -126,12 +126,65 @@ body {
     color:#abfffe;
 }
 
-i{
-font-size: 30px;
+
+/*hamburger buttons*/
+.menu-button button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.menu-button {
-  display: none;
+
+.menu-button i {
+  font-size: 1.5rem;
+  color: white; 
+}
+
+
+.menu-button button:hover,
+.menu-button button:focus {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+  .menu-button button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+  .menu-button {
+    display: none;
+  }
+
+.sidebar li:first-child button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+
+.sidebar li:first-child i {
+  font-size: 1.5rem; 
+  color: white;
+}
+
+.sidebar li:first-child button:hover,
+.sidebar li:first-child button:focus {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
 }
 @media(max-width:810px){
   .hideOnMobile {
