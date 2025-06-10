@@ -1,70 +1,81 @@
-
-// Get all nav list items in both desktop and hamburger menus
+// NAVIGATION ACTIVE ITEM ON CLICK
 const navItems = document.querySelectorAll('#desktop-nav ul li, #hamburger-nav .menu-links ul li');
 
 navItems.forEach(item => {
   item.addEventListener('click', () => {
-    // Remove active class from all nav items
     navItems.forEach(nav => nav.classList.remove('active'));
-    // Add active class to clicked nav item
     item.classList.add('active');
   });
 });
 
+// EMAIL SENDING WITH EMAILJS
 function sendEmail(event) {
-  event.preventDefault(); 
+  event.preventDefault();
 
   const serviceID = 'service_sccggae';
   const mainTemplateID = 'template_m3c036c';
-  const autoReplyTemplateID = 'template_7vs6yj9'; 
+  const autoReplyTemplateID = 'template_7vs6yj9';
 
   const form = document.getElementById('contact-form');
+  if (!form) return;
 
-  // Send main email to you
   emailjs.sendForm(serviceID, mainTemplateID, form)
     .then(() => {
-      // After success, send auto-reply to user
-      emailjs.send(serviceID, autoReplyTemplateID, {
+      return emailjs.send(serviceID, autoReplyTemplateID, {
         email: form.email.value,
         name: form.name.value,
         title: 'Thank you for contacting me!',
-      })
-      .then(() => {
-        alert('Message sent successfully! Check your email for confirmation.');
-        form.reset();
-      }, (error) => {
-        console.error('Failed to send auto-reply:', error);
-        alert('Message sent but auto-reply failed.');
-        form.reset();
       });
-    }, (error) => {
-      console.error('Failed to send message:', error);
-      alert('Failed to send message. Please try again later.');
+    })
+    .then(() => {
+      alert('Message sent successfully! Check your email for confirmation.');
+      form.reset();
+    })
+    .catch(error => {
+      console.error('Email send error:', error);
+      alert('Something went wrong. Please try again later.');
+      form.reset();
     });
 }
 
-// Show the sidebar by adding the 'show' class
+// SIDEBAR TOGGLE WITH ACCESSIBILITY SUPPORT
 function showSideBar() {
-  document.querySelector('.sidebar').classList.add('show');
+  const sidebar = document.querySelector('.sidebar');
+  if (!sidebar) return;
+  sidebar.classList.add('show');
+  sidebar.style.display = 'block';
+  sidebar.setAttribute('aria-hidden', 'false');
 }
 
-// Hide the sidebar by removing the 'show' class
 function hideSideBar() {
-  document.querySelector('.sidebar').classList.remove('show');
+  const sidebar = document.querySelector('.sidebar');
+  if (!sidebar) return;
+  sidebar.classList.remove('show');
+  sidebar.style.display = 'none';
+  sidebar.setAttribute('aria-hidden', 'true');
 }
 
-// Get all nav links in desktop and sidebar menus
+// SMOOTH SCROLL + AUTO SIDEBAR HIDE
 const navLinks = document.querySelectorAll('.navbar ul li a[href^="#"]');
 
-// Scroll Spy & Active Link Update
+navLinks.forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+    hideSideBar();
+  });
+});
+
+// SCROLL SPY FUNCTIONALITY
 window.addEventListener('scroll', () => {
   let currentSection = '';
-
   document.querySelectorAll('section').forEach(section => {
     const sectionTop = section.offsetTop;
     const sectionHeight = section.offsetHeight;
-
-    if (pageYOffset >= sectionTop - sectionHeight / 3) {
+    if (window.pageYOffset >= sectionTop - sectionHeight / 3) {
       currentSection = section.getAttribute('id');
     }
   });
@@ -77,34 +88,11 @@ window.addEventListener('scroll', () => {
   });
 });
 
-// Smooth scroll + hide sidebar on link click
-navLinks.forEach(link => {
-  link.addEventListener('click', e => {
+// SIDEBAR CLOSE BUTTON (SAFE CHECK)
+const closeSidebarLink = document.querySelector('.sidebar li:first-child a');
+if (closeSidebarLink) {
+  closeSidebarLink.addEventListener('click', e => {
     e.preventDefault();
-    const target = document.querySelector(link.getAttribute('href'));
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
-    // Hide sidebar when any sidebar link is clicked
     hideSideBar();
   });
-});
-
-// Optional: If you want clicking on the close icon to hide sidebar
-document.querySelector('.sidebar li:first-child a').addEventListener('click', e => {
-  e.preventDefault();
-  hideSideBar();
-});
-
-
-function showSideBar() {
-  const sidebar = document.querySelector('.sidebar');
-  sidebar.style.display = 'block';
-  sidebar.setAttribute('aria-hidden', 'false');
-}
-
-function hideSideBar() {
-  const sidebar = document.querySelector('.sidebar');
-  sidebar.style.display = 'none';
-  sidebar.setAttribute('aria-hidden', 'true');
 }
