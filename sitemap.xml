@@ -5,24 +5,4 @@
     <lastmod>2025-06-10</lastmod>
     <priority>1.0</priority>
   </url>
-  <url>
-    <loc>https://dhungelsuman.github.io/portfolio/#about</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://dhungelsuman.github.io/portfolio/#skills</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://dhungelsuman.github.io/portfolio/#projects</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://dhungelsuman.github.io/portfolio/#education</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://dhungelsuman.github.io/portfolio/#contact</loc>
-    <priority>0.6</priority>
-  </url>
 </urlset>
